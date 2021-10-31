@@ -9,7 +9,7 @@
  * @brief Water LEDs
  */
 void task_led(void *p_arg) {
-  uc16 nms = 200;
+  uc16 nms = 1000;
   while (1) {
     LED_R(0);
     LED_G(1);

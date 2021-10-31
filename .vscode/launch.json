@@ -4,7 +4,7 @@
     {
       "name": "pyOCD",
       "cwd": "${workspaceFolder}",
-      "executable": "build/executable.elf",
+      "executable": "build/executable",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "pyocd",

@@ -39,16 +39,16 @@ include_directories(
     lib/uC-OS3/Cfg
 )
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME}.elf
+target_link_libraries(${PROJECT_NAME}
     gcc
     m
     nosys
     c
 )
 
-target_compile_definitions(${PROJECT_NAME}.elf PUBLIC
+target_compile_definitions(${PROJECT_NAME} PUBLIC
     -DSTM32F103xE
     -DUSE_FULL_LL_DRIVER
 )
