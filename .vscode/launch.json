@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "pyOCD",
+      "cwd": "${workspaceFolder}",
+      "executable": "build/executable.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "pyocd",
+      "runToMain": true,
+      "targetId": "STM32F103ZE",
+      "svdFile": "C:/Users/renil/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/SVD/STM32F103xx.svd",
+      "cmsisPack": "C:/Users/renil/AppData/Local/Arm/Packs/.Download/Keil.STM32F1xx_DFP.2.3.0.pack"
+    }
+  ]
+}

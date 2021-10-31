@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Load",
+      "type": "shell",
+      "command": "pyocd",
+      "args": [
+        "flash",
+        "build/executable.bin",
+        "--erase",
+        "sector",
+        "--target",
+        "STM32F103ZE",
+        "--pack",
+        "C:/Users/renil/AppData/Local/Arm/Packs/.Download/Keil.STM32F1xx_DFP.2.3.0.pack"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
