@@ -4,7 +4,6 @@ set(TOOLCHAIN_PREFIX "C:/Tools/gcc-arm-none-eabi")
 set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/lib/scripts/STM32F103ZETx_FLASH.ld")
 
 include(lib/cmake/toolchain-arm-none-eabi.cmake)
-include(lib/cmake/binutils-arm-none-eabi.cmake)
 include(lib/cmake/target.cmake)
 
 project(executable C ASM)

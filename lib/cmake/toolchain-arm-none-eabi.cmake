@@ -52,7 +52,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 # -mabi=aapcs           Defines enums to be a variable sized type.
 set(OBJECT_GEN_FLAGS "-O0 -mthumb -fno-builtin -Wall -ffunction-sections -fdata-sections -fomit-frame-pointer -mabi=aapcs")
 
-set(CMAKE_C_FLAGS   "${OBJECT_GEN_FLAGS} -std=gnu99 " CACHE INTERNAL "C Compiler options")
+set(CMAKE_C_FLAGS "${OBJECT_GEN_FLAGS} -std=gnu99 " CACHE INTERNAL "C Compiler options")
 set(CMAKE_CXX_FLAGS "${OBJECT_GEN_FLAGS} -std=c++11 " CACHE INTERNAL "C++ Compiler options")
 set(CMAKE_ASM_FLAGS "${OBJECT_GEN_FLAGS} -x assembler-with-cpp " CACHE INTERNAL "ASM Compiler options")
 
@@ -93,3 +93,38 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+#-------------------------------------------------------------------------------
+# Set tools
+#-------------------------------------------------------------------------------
+set(CMAKE_OBJCOPY ${TOOLCHAIN_BIN_DIR}/${TOOLCHAIN}-objcopy${TOOLCHAIN_EXT})
+set(CMAKE_OBJDUMP ${TOOLCHAIN_BIN_DIR}/${TOOLCHAIN}-objdump${TOOLCHAIN_EXT})
+set(CMAKE_SIZE ${TOOLCHAIN_BIN_DIR}/${TOOLCHAIN}-size${TOOLCHAIN_EXT})
+
+#-------------------------------------------------------------------------------
+# Prints the section sizes
+#-------------------------------------------------------------------------------
+function(print_section_sizes TARGET)
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_SIZE} ${TARGET})
+endfunction()
+
+#-------------------------------------------------------------------------------
+# Creates output in hex format
+#-------------------------------------------------------------------------------
+function(create_hex_output TARGET)
+    add_custom_target(${TARGET}.hex ALL DEPENDS ${TARGET} COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET} ${TARGET}.hex)
+endfunction()
+
+#-------------------------------------------------------------------------------
+# Creates output in binary format
+#-------------------------------------------------------------------------------
+function(create_bin_output TARGET)
+    add_custom_target(${TARGET}.bin ALL DEPENDS ${TARGET} COMMAND ${CMAKE_OBJCOPY} -Obinary ${TARGET} ${TARGET}.bin)
+endfunction()
+
+#-------------------------------------------------------------------------------
+# Creates output in elf format
+#-------------------------------------------------------------------------------
+function(create_elf_output TARGET)
+    add_custom_target(${TARGET}.elf ALL DEPENDS ${TARGET} COMMAND ${CMAKE_OBJCOPY} ${TARGET} ${TARGET}.elf)
+endfunction()
