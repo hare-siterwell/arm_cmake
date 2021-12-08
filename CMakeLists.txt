@@ -2,13 +2,12 @@ cmake_minimum_required(VERSION 3.6)
 
 set(TOOLCHAIN_PREFIX "C:/Tools/gcc-arm-none-eabi")
 set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/lib/scripts/STM32F103ZETx_FLASH.ld")
-
 include(lib/cmake/toolchain-arm-none-eabi.cmake)
 include(lib/cmake/target.cmake)
 
 project(executable C ASM)
 
-file(GLOB_RECURSE SOURCES
+file(GLOB SOURCES
     src/*.c
     src/app/*.c
     src/bsp/*.c
@@ -24,7 +23,14 @@ file(GLOB_RECURSE SOURCES
     lib/uC-OS3/Cfg/os_app_hooks.c
 )
 
-include_directories(
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    -DSTM32F103xE
+    -DUSE_FULL_LL_DRIVER
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
     inc
     src/bsp
     lib/Drivers/CMSIS/Include
@@ -38,18 +44,11 @@ include_directories(
     lib/uC-OS3/Cfg
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
     gcc
     m
     nosys
     c
-)
-
-target_compile_definitions(${PROJECT_NAME} PUBLIC
-    -DSTM32F103xE
-    -DUSE_FULL_LL_DRIVER
 )
 
 create_bin_output(${PROJECT_NAME})
